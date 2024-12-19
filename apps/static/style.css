@@ -1,0 +1,99 @@
+body {
+    font-family: 'BioRhyme', serif;
+    padding: 20px;
+    background-color: white;
+}
+
+h1, h2, h3 {
+    font-family: 'BioRhyme', serif;
+}
+
+header {
+    margin-bottom: 20px;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+button, .add-to-cart {
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    transition: background-color 0.3s ease, box-shadow 0.2s ease;
+}
+
+button {
+    width: 100%;
+}
+
+.notification {
+    background-color: #7B68EE;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    font-size: 16px;
+    z-index: 1000;
+}
+
+.card {
+    background-color: #00CED1;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-title {
+    color: darkblue;
+    font-family: 'BioRhyme', serif;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.card-text {
+    font-family: 'BioRhyme', serif;
+    font-size: 16px;
+    color: blue;
+}
+
+.add-to-cart {
+    border-radius: 10px;
+    color: white;
+    background: #5A4EBF;
+    box-shadow: 0 5px 0 #5A4EBF;
+}
+
+.add-to-cart:hover, button.add-to-cart:hover {
+    background-color: #5A4EBF;
+    box-shadow: none;
+    position: relative;
+    top: 5px;
+}
+
+button#sortAsc, button#sortDesc {
+    background-color: #00CED1;
+    color: darkblue;
+    border-radius: 15px;
+}
+
+button#sortAsc:hover, button#sortDesc:hover {
+    background-color: #138496;
+}
+
+.row {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
