@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ category_name }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/">Услуги</a>
+            <a class="btn btn-outline-primary ml-auto" href="{{ url_for('cart') }}">Корзина</a>
+        </nav>
+    </header>
+
+    <main class="container mt-4">
+        <h1>{{ category_name }}</h1>
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <button class="btn btn-outline-secondary" id="sortAsc">По возрастанию</button>
+                <button class="btn btn-outline-secondary" id="sortDesc">По убыванию</button>
+            </div>
+        </div>
+        <div class="row">
+            {% for service in services %}
+            <div class="col-md-12 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ service[2] }}</h5>
+                        <p class="card-text">{{ service[3] }} ₽</p>
+                        <button class="btn btn-success add-to-cart" data-id="{{ service[0] }}">Добавить в корзину</button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+
+    <div id="notification" class="notification" style="display: none;">
+        Услуга добавлена в корзину!
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
