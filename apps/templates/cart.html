@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корзина</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/">Услуги</a>
+            <a class="btn btn-outline-primary ml-auto" href="{{ url_for('index') }}">Назад</a>
+        </nav>
+    </header>
+
+    <main class="container mt-4">
+        <h1>Корзина</h1>
+        <div class="row" id="cart-items">
+            {% if cart_items %}
+                {% for item in cart_items %}
+                    <div class="col-md-12 mb-4" id="item-{{ item.unique_id }}">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ item.name }}</h5>
+                                <p class="card-text">{{ item.price }} ₽</p>
+                                <button class="btn btn-danger remove-from-cart" data-id="{{ item.unique_id }}">Удалить</button>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>Ваша корзина пуста.</p>
+            {% endif %}
+        </div>
+
+        <div class="mt-4">
+            <h3 id="total-price">Итоговая сумма: {{ total_price }} ₽</h3>
+            <form action="{{ url_for('clear_cart') }}" method="POST">
+                <button class="btn btn-danger" type="submit">Очистить корзину</button>
+            </form>
+        </div>
+    </main>
+
+    <div id="notification" class="notification" style="display: none;">
+        Услуга добавлена в корзину!
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".remove-from-cart").click(function() {
+                var uniqueId = $(this).data("id");
+                var itemDiv = $("#item-" + uniqueId);
+
+                $.ajax({
+                    url: "/remove_from_cart/" + uniqueId,
+                    type: "POST",
+                    success: function(response) {
+                        showNotification(response.message);
+                        itemDiv.remove();
+                        updateTotalPrice(response.total_price);
+                    }
+                });
+            });
+
+            function showNotification(message) {
+                var notification = $("#notification");
+                notification.text(message).fadeIn().delay(2000).fadeOut();
+            }
+
+            function updateTotalPrice(totalPrice) {
+                $("#total-price").text("Итоговая сумма: " + totalPrice + " ₽");
+            }
+        });
+    </script>
+</body>
+</html>

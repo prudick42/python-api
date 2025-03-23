@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  scraper:
+    build: ./scraper
+    container_name: scraper
+    volumes:
+      - ./data:/app/data
+
+  web:
+    build: .
+    container_name: flask_app
+    ports:
+      - "5000:5000"
+    depends_on:
+      - scraper
+    volumes:
+      - ./data:/app/data
